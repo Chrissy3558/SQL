@@ -1,0 +1,75 @@
+/* Create table about the people and what they do here */
+CREATE TABLE FP (id INTEGER PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    age INTEGER,
+    birthdate TEXT,
+    show_name TEXT,
+    Sex TEXT);
+    
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex) 
+VALUES ("Ichigo", "Kurosaki", "15-29", "July 15", "BLEACH", "Male");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex) 
+VALUES ("Rukia", "Kuchiki", "150", "January 14", "BLEACH", "Female");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex) 
+VALUES ("Orihime", "Inoue", "15-29", "September 03", "BLEACH", "Female");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex) 
+VALUES ("Renji", "Abarai", "150", "August 31", "BLEACH", "Male");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex) 
+VALUES ("Yoruichi", "Shihōin", "500", "January 01", "BLEACH", "Female");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex) 
+VALUES ("Rangiku", "Matsumoto", "150", "September 29", "BLEACH", "Female");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex)
+VALUES ("Byakuya ", "Kuchiki", "250", "January 31", "BLEACH", "Male");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex)
+VALUES ("Shinji", "Hirako", "300", "May 10", "BLEACH", "Male");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex)
+VALUES ("Hiyori", "Sarugaki", "250", "August 01", "BLEACH", "Female");
+INSERT INTO FP (first_name,last_name, age, birthdate, show_name, Sex)
+VALUES ("Nelliel", "Tu Odelschwanck", "130", "April 24", "BLEACH", "Female");
+
+
+CREATE TABLE AP (id INTEGER PRIMARY KEY,
+    character_id INTEGER,
+    race TEXT,
+    afiliations TEXT);
+    
+INSERT INTO AP (character_id, race, afiliations)
+VALUES (1, "Human/Quincy", "Kurosaki Clinic,Ichigo's Group, Karakura Town, Loosely Soul Society");
+INSERT INTO AP (character_id, race, afiliations)
+VALUES (2, "Soul", "Gotei 13, Soul Society,Ichigo's Group");
+INSERT INTO AP (character_id, race, afiliations)
+VALUES (3, "Human", "Kurosaki Clinic, Karakura Town");
+INSERT INTO AP (character_id, race, afiliations)
+VALUES (5, "Soul", "Shihōin Clan, Soul Society");
+INSERT INTO AP (character_id, race, afiliations)
+VALUES (7, "Soul", "Gotei 13, Soul Society, Kuchiki Clan");
+
+CREATE TABLE FAP (id INTEGER PRIMARY KEY,
+    character_id INTEGER,
+    Profession TEXT,
+    MBTI TEXT);
+    
+INSERT INTO FAP (character_id, Profession, MBTI)
+VALUES (1, "High School Student, Substitute Shinigami", "ISFP");
+INSERT INTO FAP (character_id, Profession, MBTI)
+VALUES (4, "Shinigami", "ESTP");
+INSERT INTO FAP (character_id, Profession, MBTI)
+VALUES (6, "Shinigami", "ESFP");
+INSERT INTO FAP (character_id, Profession, MBTI)
+VALUES (8, "Shinigami, Visored", "ENTP");
+INSERT INTO FAP (character_id, Profession, MBTI)
+VALUES (9, "Shinigami, Visored", "ESTP");
+INSERT INTO FAP (character_id, Profession, MBTI)
+VALUES (10, "3rd Espada", "INFP");
+
+SELECT FP.first_name, FP.last_name, AP.afiliations
+    FROM FP
+    JOIN AP
+    ON FP.id = AP.character_id;
+
+
+SELECT FP.first_name, FP.last_name, FAP.MBTI
+    FROM FP
+    LEFT OUTER JOIN FAP
+    ON FP.id = FAP.character_id;
