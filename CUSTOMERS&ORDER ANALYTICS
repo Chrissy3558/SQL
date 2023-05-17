@@ -1,0 +1,57 @@
+/**How many orders were placed in January?
+Answer: 9,681 orders where places in Jan**/
+SELECT COUNT(orderid)
+FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+
+
+/**How many of those orders were for an iPhone?
+Answer: 379n were from iPhones**/
+SELECT * FROM BIT_DB.JanSales where product = "iPhone" and length(orderID) = 6
+
+
+/**Select the customer account numbers for all the orders that were placed in February.
+Answer. More than 11,986 account numbers listed**/
+Select distinct acctnum FROM BIT_DB.customers Cus
+INNER JOIN BIT_DB.FebSales Feb
+ON cus.order_ID=Feb.orderID
+WHERE length(orderID) = 6
+
+/**Which product was the cheapest one sold in January, and what was the price?
+Answer: AAA Batteries (4pK) price: $2.99**/
+Select Distinct Product, price
+FROM BIT_DB.JanSales 
+WHERE price in (SELECT min(price)
+FROM BIT_DB.JanSales)
+And length(orderID) = 6
+/** You could also remove the "and" it will still give you the same answer. I will also be doing a second example to this answer inwhcih i will be using "Group".**/
+SELECT product, MIN(price) 
+FROM BIT_DB.JanSales Jan 
+GROUP BY product, price 
+ORDER BY price ASC
+LIMIT 1
+
+/**What is the total revenue for each product sold in January?**/
+SELECT SUM(quantity)*price as revenue ,product
+FROM BIT_DB.JanSales
+GROUP BY product
+
+/**Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+Answer: 1 product 2 AA Bateries total cost $7.68**/
+SELECT
+SUM(Quantity), 
+product, 
+SUM(quantity)*price as revenue
+FROM BIT_DB.FebSales 
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product
+
+/**How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers?**/
+SELECT 
+COUNT(distinct cust.acctnum), 
+avg(quantity*price)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+WHERE Feb.Quantity>2
+And length(orderID) = 6
